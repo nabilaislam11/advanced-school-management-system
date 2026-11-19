@@ -30,12 +30,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('list/{class_id}', 'StudentRecordController@listByClass')->name('students.list')->middleware('teamSAT');
 
             /* Promotions */
-            Route::post('promote_selector', 'PromotionController@selector')->name('students.promote_selector');
+            if (class_exists('App\\Http\\Controllers\\SupportTeam\\PromotionController')) {
+Route::post('promote_selector', 'PromotionController@selector')->name('students.promote_selector');
             Route::get('promotion/manage', 'PromotionController@manage')->name('students.promotion_manage');
             Route::delete('promotion/reset/{pid}', 'PromotionController@reset')->name('students.promotion_reset');
             Route::delete('promotion/reset_all', 'PromotionController@reset_all')->name('students.promotion_reset_all');
             Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', 'PromotionController@promotion')->name('students.promotion');
             Route::post('promote/{fc}/{fs}/{tc}/{ts}', 'PromotionController@promote')->name('students.promote');
+}
 
         });
 
@@ -82,7 +84,8 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         /*************** Payments *****************/
-        Route::group(['prefix' => 'payments'], function(){
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\PaymentController')) {
+Route::group(['prefix' => 'payments'], function(){
 
             Route::get('manage/{class_id?}', 'PaymentController@manage')->name('payments.manage');
             Route::get('invoice/{id}/{year?}', 'PaymentController@invoice')->name('payments.invoice');
@@ -93,9 +96,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('reset_record/{id}', 'PaymentController@reset_record')->name('payments.reset_record');
             Route::post('pay_now/{id}', 'PaymentController@pay_now')->name('payments.pay_now');
         });
+}
 
         /*************** Pins *****************/
-        Route::group(['prefix' => 'pins'], function(){
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\PinController')) {
+Route::group(['prefix' => 'pins'], function(){
             Route::get('create', 'PinController@create')->name('pins.create');
             Route::get('/', 'PinController@index')->name('pins.index');
             Route::post('/', 'PinController@store')->name('pins.store');
@@ -103,9 +108,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('verify/{id}', 'PinController@verify')->name('pins.verify');
             Route::delete('/', 'PinController@destroy')->name('pins.destroy');
         });
+}
 
         /*************** Marks *****************/
-        Route::group(['prefix' => 'marks'], function(){
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\MarkController')) {
+Route::group(['prefix' => 'marks'], function(){
 
            // FOR teamSA
             Route::group(['middleware' => 'teamSA'], function(){
@@ -134,39 +141,46 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('print/{id}/{exam_id}/{year}', 'MarkController@print_view')->name('marks.print');
 
         });
+}
 
         Route::resource('students', 'StudentRecordController');
         Route::resource('users', 'UserController');
         Route::resource('classes', 'MyClassController');
         Route::resource('sections', 'SectionController');
         Route::resource('subjects', 'SubjectController');
-        Route::resource('grades', 'GradeController');
-        Route::resource('exams', 'ExamController');
-        Route::resource('dorms', 'DormController');
-        Route::resource('payments', 'PaymentController');
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\GradeController')) { Route::resource('grades', 'GradeController'); }
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\ExamController')) { Route::resource('exams', 'ExamController'); }
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\DormController')) { Route::resource('dorms', 'DormController'); }
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\PaymentController')) { Route::resource('payments', 'PaymentController'); }
 
     });
 
     /************************ AJAX ****************************/
-    Route::group(['prefix' => 'ajax'], function() {
+    if (class_exists('App\\Http\\Controllers\\SupportTeam\\AjaxController')) {
+Route::group(['prefix' => 'ajax'], function() {
         Route::get('get_lga/{state_id}', 'AjaxController@get_lga')->name('get_lga');
         Route::get('get_class_sections/{class_id}', 'AjaxController@get_class_sections')->name('get_class_sections');
         Route::get('get_class_subjects/{class_id}', 'AjaxController@get_class_subjects')->name('get_class_subjects');
     });
+}
 
 });
 
 /************************ SUPER ADMIN ****************************/
+if (class_exists('App\\Http\\Controllers\\SuperAdmin\\SettingController')) {
 Route::group(['namespace' => 'SuperAdmin','middleware' => 'super_admin', 'prefix' => 'super_admin'], function(){
 
     Route::get('/settings', 'SettingController@index')->name('settings');
     Route::put('/settings', 'SettingController@update')->name('settings.update');
 
 });
+}
 
 /************************ PARENT ****************************/
+if (class_exists('App\\Http\\Controllers\\MyParent\\MyController')) {
 Route::group(['namespace' => 'MyParent','middleware' => 'my_parent',], function(){
 
     Route::get('/my_children', 'MyController@children')->name('my_children');
 
 });
+}
