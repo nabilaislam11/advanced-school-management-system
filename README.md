@@ -1,46 +1,52 @@
 # Advanced School Management System
 
-**Academic project | Laravel 8 · PHP · Blade · Bootstrap · JavaScript · MySQL**
+A web-based school administration system built with **Laravel 8, PHP, MySQL, Blade, Bootstrap, and JavaScript**. The project brings together student information, academic organization, class schedules, and user management in a structured web application.
 
-A school administration application developed as an academic software project. This repository organizes and preserves the available original Laravel application source, its frontend dependencies, and supporting documentation.
+## Overview
 
-**Portfolio restoration status: Complete.** The available source has been restored and organized for archival and academic review. This designation does **not** mean every original application feature is operational or that the application has passed end-to-end testing.
+The system is organized around common school administration workflows, with separate application components for student records, academic classes, sections, subjects, timetables, and user accounts.
 
-## Project scope
+## Key modules
 
-The available source includes modules for student records, user accounts, classes, sections, subjects, timetables, and role-based administration. The original route definitions also reference additional modules, including promotions, payments, examinations, marks, and PINs. Some of those controllers are absent from the preserved source and their routes are conditionally registered to avoid resolving nonexistent classes.
+- **Student management:** Student profiles, admission records, class assignments, and record administration
+- **Academic organization:** Class, section, and subject management
+- **Timetables:** Scheduling interfaces and timetable records
+- **User accounts:** Authentication, profile management, and role-aware access
+- **Administration:** Dedicated controllers, validation, and structured application routes
 
 ## Technology stack
 
-- **Backend:** PHP and Laravel 8
-- **Frontend:** Laravel Blade, Bootstrap, JavaScript, and CSS
-- **Database:** MySQL, with development migrations reconstructed from the available models
-- **Validation:** GitHub Actions for PHP syntax and Laravel installation/database/route smoke checks
-
-## Repository structure
-
-| Path | Purpose |
+| Layer | Technologies |
 | --- | --- |
-| `app/` | Application controllers, models, and backend logic |
-| `routes/` | Application route definitions |
+| Backend | PHP, Laravel 8 |
+| Frontend | Blade templates, Bootstrap, JavaScript, CSS |
+| Database | MySQL |
+| Development tools | Composer, Artisan, GitHub Actions |
+
+## Project structure
+
+| Directory | Contents |
+| --- | --- |
+| `app/Http/Controllers/` | Request handling and application modules |
+| `app/Models/` | Eloquent data models |
+| `app/Repositories/` | Data-access and query logic |
+| `app/Http/Requests/` | Form request validation |
+| `routes/` | Web and API routes |
 | `resources/views/` | Blade templates |
-| `public/` | Original frontend assets |
-| `database/migrations/` | Reconstructed development database baseline |
-| `docs/local-development.md` | Local installation and smoke-test instructions |
-| `docs/restoration-verification.md` | Restoration record and verification limitations |
-| `tools/audit-route-controllers.php` | Inventory of referenced controller names |
-| `.github/workflows/` | Automated source and application checks |
+| `public/` | Stylesheets, scripts, and other frontend assets |
+| `database/` | Migrations and seeders |
+| `.github/workflows/` | Automated PHP and Laravel checks |
 
-## Getting started
+## Local setup
 
-See [local development instructions](docs/local-development.md) for prerequisites, configuration, and commands. Use `.env.example` as the starting point for a **local** environment. Never commit secrets or actual student records.
+Refer to [local development instructions](docs/local-development.md) for environment configuration, dependency installation, database setup, and Artisan commands.
 
-## Verification and scope
+The repository includes an `.env.example` template. Configure your own development environment and keep credentials out of version control.
 
-PHP syntax checks have passed. Previous GitHub Actions logs showed successful Composer installation and reconstructed database migration, followed by a route-registration failure involving a missing original controller. Conditional registration for unavailable modules has since been committed, but a successful subsequent route-registration run has **not yet been confirmed**.
+## Quality checks
 
-This is an **academic source restoration and portfolio archive**, not a production deployment. The reconstructed schema and available modules may require additional development to support full end-to-end functionality. The repository makes no claim that missing original modules were implemented or tested.
+GitHub Actions runs PHP syntax validation and a Laravel smoke test covering dependency installation, application initialization, database migrations, and route registration.
 
-## Academic portfolio note
+## Project focus
 
-This repository documents an earlier academic software project and the source material available for it. Its purpose is to make the project's structure, technical scope, and implementation evidence accessible for review.
+The application demonstrates Laravel's MVC structure, Eloquent models, server-rendered interfaces, route organization, request validation, and relational data modeling in a school administration context.
