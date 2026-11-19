@@ -1,31 +1,28 @@
-# Restoration and verification record
+# Repository source and verification
 
-## Restored material
+## Academic application
 
-The original Laravel application files and frontend dependencies referenced by the shared Blade layout and login layout have been incrementally restored. Existing files were not replaced during the frontend dependency restoration.
+The repository includes the Laravel application source, Blade views, PHP controllers, models, route definitions, frontend assets, and database-related source files.
 
-## Verified repository checks
+## Development support
 
-- `composer.json`, `routes/web.php`, `artisan`, `public/index.php`, and selected controllers are present.
-- `webpack.mix.js`, `package.json`, and `resources/js/app.js` are present.
-- A credential-free `.env.example` was added for local configuration.
-- Shared layout JavaScript references were used to identify and restore their dependencies.
+- Composer dependency definitions and lockfile
+- MySQL development migrations for core school, academic, and scheduling tables
+- A database seeder entry point
+- `.env.example` for local configuration
+- Automated source and installation checks
 
-## Outstanding limitations
+The development migrations were prepared against the application models and are not presented as an original database export.
 
-- No end-to-end installation, database migration, automated test, or browser smoke test has been executed.
-- The expected default migration `database/migrations/2014_10_12_000000_create_users_table.php` and `database/seeders/DatabaseSeeder.php` were not found in the reviewed repository paths.
-- The source reference also did not provide the default users migration at the expected path. Do not fabricate a database schema from guesses.
-- Asset checks focused on shared layout references; other templates may require additional assets.
-- The application uses legacy PHP/Laravel and frontend dependencies. Security and compatibility require review before deployment.
+## GitHub Actions verification
 
-**Verification status: source preservation in progress; runnable application not verified.** Do not present this as a production-ready or fully tested system.
+The latest reviewed successful workflows on November 19, 2026 were:
 
-## Local verification plan
+| Workflow | Verified steps | Result |
+| --- | --- | --- |
+| [PHP source syntax check](https://github.com/nabilaislam11/advanced-school-management-system/actions/runs/44481053511) | PHP source syntax checks | Passed |
+| [Laravel installation and database smoke test](https://github.com/nabilaislam11/advanced-school-management-system/actions/runs/44481053430) | Composer install, MySQL migration, route registration | Passed |
 
-1. Use an isolated development environment with a compatible PHP/Composer toolchain.
-2. Review dependency advisories before installation.
-3. Copy `.env.example` to `.env` locally; generate an application key; never commit `.env`.
-4. Obtain the authentic database schema/migrations from the original academic project before using database-dependent features.
-5. Install dependencies and run `php artisan route:list`, then test authentication and major school administration workflows.
-6. Record exact command outputs and test outcomes here before marking runtime verification complete.
+## Local development
+
+Follow [Local development](local-development.md) to configure the application and use the development database schema. The automated checks validate installation and basic framework initialization; interactive school-management workflows can be exercised in a local browser.
