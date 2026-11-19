@@ -47,6 +47,8 @@ Route::post('promote_selector', 'PromotionController@selector')->name('students.
         });
 
         /*************** TimeTables *****************/
+        // The preserved timetable controller requires ExamRepo, absent from the original archive.
+        if (class_exists('App\\Http\\Controllers\\SupportTeam\\TimeTableController') && class_exists('App\\Repositories\\ExamRepo')) {
         Route::group(['prefix' => 'timetables'], function(){
             Route::get('/', 'TimeTableController@index')->name('tt.index');
 
@@ -82,6 +84,8 @@ Route::post('promote_selector', 'PromotionController@selector')->name('students.
             });
 
         });
+
+        }
 
         /*************** Payments *****************/
         if (class_exists('App\\Http\\Controllers\\SupportTeam\\PaymentController')) {
