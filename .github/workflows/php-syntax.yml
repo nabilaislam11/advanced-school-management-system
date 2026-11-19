@@ -1,0 +1,38 @@
+name: PHP source syntax check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP 8.0 for archived Laravel source
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          tools: none
+          coverage: none
+      - name: Validate PHP syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r -d '' file; do
+            php -l "$file"
+            count=$((count + 1))
+          done < <(find app bootstrap config database routes resources tests -type f -name '*.php' -print0 2>/dev/null || true)
+          echo "Checked $count PHP files"
+          test "$count" -gt 0
+      - name: Check required application entry points
+        run: |
+          test -f artisan
+          test -f composer.json
+          test -f routes/web.php
+          test -f public/index.php
