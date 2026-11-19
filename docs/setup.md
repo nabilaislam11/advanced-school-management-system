@@ -1,11 +1,36 @@
-# Development setup notes
+# Laravel development setup
 
-The original application uses Laravel 8, PHP 7.2/8-compatible dependency constraints, and MySQL as the default configured database connection.
+The Advanced School Management System is a Laravel 8 application built with PHP, MySQL, Blade templates, and Bootstrap.
 
-1. Install an appropriate PHP/Composer environment and database service.
-2. Install PHP dependencies with `composer install`.
-3. Create a local `.env` file containing your own development configuration; do not commit credentials.
-4. Supply and validate the application database schema before attempting database-backed features.
-5. Run application and authentication tests before using the project with real records.
+## Requirements
 
-**Current state:** These are preparation notes, not a tested installation procedure. The original source includes unresolved dependencies and is still being imported. Do not deploy this application in production.
+Use PHP and Composer versions compatible with `composer.lock`, MySQL, and Node.js/npm for frontend asset compilation.
+
+## Install locally
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+```
+
+Edit the local `.env` to set the database connection. Create a development MySQL database, then run:
+
+```bash
+php artisan migrate
+php artisan route:list
+npm install
+npm run dev
+php artisan serve --host=127.0.0.1
+```
+
+For a more detailed setup, see [Local development](local-development.md).
+
+## Automated verification
+
+GitHub Actions checks PHP source syntax, installs locked Composer dependencies, creates an empty MySQL test database, executes the development migrations, and verifies Laravel route registration.
+
+- [PHP source syntax workflow](../.github/workflows/php-syntax.yml)
+- [Laravel installation and database smoke test](../.github/workflows/laravel-smoke.yml)
+
+The development migrations are model-derived for this repository's local setup. They are distinct from a historical production database export.
