@@ -52,9 +52,6 @@ jobs:
         run: composer validate --no-check-publish
       - name: Install locked PHP dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
-      - name: Generate local CI application key
-        run: php artisan key:generate --show >> "$GITHUB_ENV"
-        # Key generation is checked independently below; the generated output is not committed.
       - name: Generate and export application key
         run: echo "APP_KEY=$(php artisan key:generate --show)" >> "$GITHUB_ENV"
       - name: Migrate reconstructed schema
