@@ -41,7 +41,7 @@ The system is organized around common school administration workflows, with sepa
 
 Refer to [local development instructions](docs/local-development.md) for environment configuration, dependency installation, database setup, and Artisan commands.
 
-The repository includes an `.env.example` template. Configure your own development environment and keep credentials out of version control.
+The repository includes an `.env.example` template for local configuration.
 
 ## Quality checks
 
