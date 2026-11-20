@@ -45,6 +45,8 @@ The repository includes an `.env.example` template. Configure your own developme
 
 ## Quality checks
 
+[Architecture](docs/architecture.md) · [Verification workflows](docs/quality-checks.md)
+
 GitHub Actions runs PHP syntax validation and a Laravel smoke test covering dependency installation, application initialization, database migrations, and route registration.
 
 ## Project focus

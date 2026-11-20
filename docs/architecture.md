@@ -1,20 +1,32 @@
-# Application architecture
+# Advanced School Management System — Architecture
 
-This repository preserves source from an academic school management application built with PHP and Laravel 8.
+A Laravel 8 school administration application combining student management, academic organization, user roles, and timetable scheduling.
 
-## Application layers
+## Application architecture
 
-- `routes/web.php`: authenticated and role-restricted HTTP routes
-- `app/Http/Controllers/`: request handling and administrative workflows
-- `app/Repositories/`: domain queries and persistence operations
-- `app/Models/` and `app/User.php`: Eloquent data entities and relationships
-- `resources/views/`: Blade presentation templates in the original application
-- `config/`: Laravel service and database configuration
+| Layer | Source | Responsibility |
+| --- | --- | --- |
+| HTTP routes | `routes/web.php` and `routes/api.php` | Request routing and access policies |
+| Controllers | `app/Http/Controllers/` | School administration and user workflows |
+| Form requests | `app/Http/Requests/` | Validation of student, subject, class and timetable data |
+| Domain models | `app/Models/` and `app/User.php` | Eloquent entities and relationships |
+| Repositories | `app/Repositories/` | Data-access and domain queries |
+| Views | `resources/views/` | Blade-based web interface |
+| Database | `database/migrations/` | Local-development database schema |
+| Build assets | `resources/` and `public/` | Frontend styles, scripts and compiled assets |
 
-## Domain relationships
+## Academic workflows
 
-Student records associate users with classes, sections, parents and dormitories. Classes contain sections and student records. Timetables connect time slots, timetable records and subjects.
+1. **User access:** Login, account management and role-based application sections.
+2. **Student management:** Create and maintain student records associated with class and section assignments.
+3. **Academic structure:** Define classes, sections and subjects.
+4. **Timetable management:** Configure time slots, create timetables and manage timetable records.
+5. **Administration:** School settings, users and supporting records.
 
-## Scope and validation
+## Data model
 
-This is an academic source-preservation project. The available original source has unresolved controller/model references and lacks project database migrations; runtime functionality has not been verified. The current repository import is in progress and does not yet include all original source files.
+The application represents students, classes, sections, subjects, time slots and timetables with Laravel Eloquent models and supporting repositories. Local migrations for the school data model are included in `database/migrations/`.
+
+## Development and checks
+
+The [local development guide](local-development.md) covers the Laravel and MySQL setup. GitHub Actions checks PHP syntax, installs locked dependencies, applies the migrations to a fresh MySQL database and lists the application routes. See [project checks](quality-checks.md).

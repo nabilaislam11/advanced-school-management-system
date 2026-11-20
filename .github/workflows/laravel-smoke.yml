@@ -58,7 +58,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist --no-progress
       - name: Generate and export application key
         run: echo "APP_KEY=$(php artisan key:generate --show)" >> "$GITHUB_ENV"
-      - name: Migrate reconstructed schema
+      - name: Migrate academic project database schema
         run: php artisan migrate --force --no-interaction
       - name: Verify route registration
         run: php artisan route:list
